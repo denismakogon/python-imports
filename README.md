@@ -28,20 +28,51 @@ For this experiment we're going to use [the following system constraints](run_co
 I'm going to use plot.ly and pandas to print [the results](final_results-peaks.html) of the calculations.
 But here's curious observations:
 ```
-Raw imports mean:  44487.03050305031
-LRU imports mean:  39943.37513751375
-Number of peaks during raw imports:  4079
-Number of peaks during LRU imports:  3972
-Lower mean:  39943.37513751375
-Number of peaks during raw imports (higher than a lower mean):  4081
-Number of peaks during LRU imports (higher than a lower mean):  3972
+Range: [0:20000]
+Number of raw imports in range: 5853
+Number of LRU imports in range: 6003
+Raw imports mean: 9981.924483171024
+LRU imports mean: 7118.146926536731
+Practical percentage of slow imports in range [0: 20000]: 40.2320658197995
+
+
+Range: [20000:40000]
+Number of raw imports in range: 65
+Number of LRU imports in range: 24
+Raw imports mean: 24157.169230769232
+LRU imports mean: 26521.791666666668
+Practical percentage of slow imports in range [20000: 40000]: -8.915771851376697
+
+
+Range: [40000:60000]
+Number of raw imports in range: 18
+Number of LRU imports in range: 25
+Raw imports mean: 53170.666666666664
+LRU imports mean: 51157.84
+Practical percentage of slow imports in range [40000: 60000]: 3.9345419327060593
+
+
+Range: [60000:80000]
+Number of raw imports in range: 91
+Number of LRU imports in range: 253
+Raw imports mean: 74713.51648351649
+LRU imports mean: 75567.77075098814
+Practical percentage of slow imports in range [60000: 80000]: -1.1304478866878354
+
+
+Range: [80000:618199]
+Number of raw imports in range: 3972
+Number of LRU imports in range: 3694
+Raw imports mean: 94933.38267875125
+LRU imports mean: 90858.0013535463
+Practical percentage of slow imports in range [80000: 618199]: 4.485440208338787
+
 ```
 
-As you may see native/raw imports are slower than LRU-based imports.
+As you may see, at most of the times native/raw imports theoretically are slower than LRU-based imports.
 
-At 10K - 1.1% of raw imports are slower than LRU-based imports.
-At 100K - 2.3%  of raw imports are slower than LRU-based imports.
-
+The time difference could be up to 40% in the most effective range from zero up to 20K, 
+this range contains at least like a half of all imports.
 
 ## Side note
 
