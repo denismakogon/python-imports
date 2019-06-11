@@ -27,7 +27,11 @@ For this experiment we're going to use [the following system constraints](run_co
 
 I'm going to use plot.ly and pandas to print [the results](final_results-peaks.html) of the calculations.
 But here's curious observations:
-```
+
+```bash
+6514 LRU imports were faster than raw imports
+3485 raw imports were slower than LRU imports
+
 Range: [0:20000]
 Number of raw imports in range: 5853
 Number of LRU imports in range: 6003
@@ -67,12 +71,26 @@ Raw imports mean: 94933.38267875125
 LRU imports mean: 90858.0013535463
 Practical percentage of slow imports in range [80000: 618199]: 4.485440208338787
 
+
+Range: [0:60000]
+Number of raw imports in range: 5936
+Number of LRU imports in range: 6052
+Raw imports mean: 10268.108490566037
+LRU imports mean: 7377.016688697951
+Practical percentage of slow imports in range [0: 60000]: 39.190528148017044
+
 ```
 
-As you may see, at most of the times native/raw imports theoretically are slower than LRU-based imports.
+As you may see, at most of the times, native/raw imports theoretically are slower than LRU-based imports.
+In particular, 6514 times raw/native import is slower than LRU-based import.
 
-The time difference could be up to 40% in the most effective range from zero up to 20K, 
+The time difference could be up to 39% in the most effective range from zero up to 20K, 
 this range contains at least like a half of all imports.
+
+Each range visualization you may find in the following folders:
+
+ - [1st run](visual/1st_run) is where you'd find 20K-step imports time analytics
+ - [2nd run](visual/2nd_run) is where you'd find 0-60K, 60K and beyond ranges visualized
 
 ## Side note
 
@@ -85,3 +103,18 @@ I'm not trying to blame anyone from Python core team, but this is our reality - 
 
 Please note that this test includes only 1 import from the standard library, things might get worth with 3rd-party libraries.
 The thing is that each import may act weird. But the truth is that LRU wrapper speeds up imports processing.
+
+## Downsides
+
+Okay, my approach has couple disadvantages:
+
+    - ugly hack
+    - for monolith applications may not be necessary
+    - breaks native development/debugging flow
+    - if nobody taking all of that seriously then why should I care?
+
+
+## Advantages
+
+It works better than ordinary imports.
+The best area to apply the following knowledge - serverless (due to the "cold start issue").
